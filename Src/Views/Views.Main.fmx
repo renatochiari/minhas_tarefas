@@ -1,0 +1,7 @@
+inherited MainView: TMainView
+  Caption = 'Minhas Tarefas'
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+end

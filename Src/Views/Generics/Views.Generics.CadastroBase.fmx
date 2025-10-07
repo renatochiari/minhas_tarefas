@@ -1,0 +1,62 @@
+inherited BaseCadastroView: TBaseCadastroView
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
+  Caption = 'BaseCadastroView'
+  ClientHeight = 373
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  inherited lytBase: TLayout
+    Margins.Left = 8.000000000000000000
+    Margins.Top = 8.000000000000000000
+    Margins.Right = 8.000000000000000000
+    Margins.Bottom = 8.000000000000000000
+    Size.Width = 572.000000000000000000
+    Size.Height = 357.000000000000000000
+    object lytBotoes: TLayout
+      Align = Bottom
+      Position.Y = 322.000000000000000000
+      Size.Width = 572.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object btnSalvar: TButton
+        Align = Right
+        StyledSettings = [Family, Style, FontColor]
+        Margins.Left = 5.000000000000000000
+        Position.X = 492.000000000000000000
+        Size.Width = 80.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Text = 'Salvar'
+        TextSettings.Trimming = None
+        OnClick = btnSalvarClick
+      end
+      object btnExcluir: TButton
+        Align = Right
+        StyledSettings = [Family, Style, FontColor]
+        Margins.Left = 5.000000000000000000
+        Position.X = 407.000000000000000000
+        Size.Width = 80.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Text = 'Excluir'
+        TextSettings.Trimming = None
+        OnClick = btnExcluirClick
+      end
+      object btnCancelar: TButton
+        Align = Right
+        StyledSettings = [Family, Style, FontColor]
+        Margins.Left = 5.000000000000000000
+        Position.X = 322.000000000000000000
+        Size.Width = 80.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        Text = 'Cancelar'
+        TextSettings.Trimming = None
+        OnClick = btnCancelarClick
+      end
+    end
+  end
+end

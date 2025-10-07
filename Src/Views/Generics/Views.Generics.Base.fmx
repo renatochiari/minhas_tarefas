@@ -1,0 +1,18 @@
+object BaseView: TBaseView
+  Left = 0
+  Top = 0
+  ClientHeight = 425
+  ClientWidth = 588
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object lytBase: TLayout
+    Align = Client
+    Size.Width = 588.000000000000000000
+    Size.Height = 425.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+  end
+end
