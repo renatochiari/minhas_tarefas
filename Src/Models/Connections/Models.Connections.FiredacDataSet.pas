@@ -29,11 +29,14 @@ implementation
 
 procedure TFiredacDataSet.AlimentaParams(params: TDictionary<string, Variant>);
 begin
-     if (not Assigned(params) or params.IsEmpty) then
-        Exit;
+    if (not Assigned(params) or params.IsEmpty) then
+       Exit;
 
-     for var param in params do
-         FQuery.ParamByName(param.Key).Value := param.Value;
+    for var param in params do
+    begin
+        if Assigned(FQuery.ParamByName(param.Key)) then
+            FQuery.ParamByName(param.Key).Value := param.Value;
+    end;
 end;
 
 procedure TFiredacDataSet.AlimentaQuery(sql: string);

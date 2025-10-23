@@ -178,6 +178,16 @@
             <Form>UsuarioCadastroView</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Views\Generics\Views.Generics.Style.pas">
+            <Form>StyleView</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Models\Services\Models.Services.Tarefa.pas"/>
+        <DCCReference Include="Controllers\Controllers.Tarefa.pas"/>
+        <DCCReference Include="Views\Views.CadastroTarefa.pas">
+            <Form>TarefaCadastroView</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

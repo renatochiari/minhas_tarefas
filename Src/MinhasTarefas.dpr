@@ -26,12 +26,17 @@ uses
   Controllers.Contracts.Controller in 'Controllers\Contracts\Controllers.Contracts.Controller.pas',
   Views.Generics.Base in 'Views\Generics\Views.Generics.Base.pas' {BaseView},
   Views.Generics.CadastroBase in 'Views\Generics\Views.Generics.CadastroBase.pas' {BaseCadastroView},
-  Views.CadastroUsuario in 'Views\Views.CadastroUsuario.pas' {UsuarioCadastroView};
+  Views.CadastroUsuario in 'Views\Views.CadastroUsuario.pas' {UsuarioCadastroView},
+  Views.Generics.Style in 'Views\Generics\Views.Generics.Style.pas' {StyleView},
+  Models.Services.Tarefa in 'Models\Services\Models.Services.Tarefa.pas',
+  Controllers.Tarefa in 'Controllers\Controllers.Tarefa.pas',
+  Views.CadastroTarefa in 'Views\Views.CadastroTarefa.pas' {TarefaCadastroView};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TMainView, MainView);
+  Application.CreateForm(TStyleView, StyleView);
   Application.Run;
 end.

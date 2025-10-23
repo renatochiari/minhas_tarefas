@@ -12,8 +12,8 @@ type
       constructor Create(entity: TBaseEntity);
 
       function NomeTabela: string;
-      function ListarCampos(prefixo, separador: string; comValor, compararAtribuir, incluirPk, incluirCamposComuns: Boolean): string;
-      function ListarValoresParametros(incluirPk, incluirCamposComuns: Boolean): TDictionary<string, Variant>;
+      function ListarCampos(prefixo, separador: string; somenteComValor, compararAtribuir, incluirPk, incluirCamposComuns: Boolean): string;
+      function ListarValoresParametros(somenteComValor, incluirPk, incluirCamposComuns: Boolean): TDictionary<string, Variant>;
 
     public
       class function New(entity: TBaseEntity): TGeradorSql;
@@ -32,7 +32,7 @@ uses Models.Repositories.Utils.Atributos, StrUtils;
 
 function TGeradorSql.Delete(var retParams: TDictionary<string, Variant>): string;
 begin
-     retParams := ListarValoresParametros(True, False);
+     retParams := ListarValoresParametros(True, True, False);
      Result := Format('DELETE FROM %s WHERE %s', [
        NomeTabela,
        ListarCampos(':', ' AND ', True, True, True, False)
@@ -41,7 +41,7 @@ end;
 
 function TGeradorSql.Insert(var retParams: TDictionary<string, Variant>): string;
 begin
-     retParams := ListarValoresParametros(True, True);
+     retParams := ListarValoresParametros(False, True, True);
      Result := Format('INSERT INTO %s (%s) VALUES (%s)', [
        NomeTabela,
        ListarCampos('', ', ', False, False, True, True),
@@ -54,7 +54,7 @@ begin
      FEntity := entity;
 end;
 
-function TGeradorSql.ListarCampos(prefixo, separador: string; comValor, compararAtribuir, incluirPk, incluirCamposComuns: Boolean): string;
+function TGeradorSql.ListarCampos(prefixo, separador: string; somenteComValor, compararAtribuir, incluirPk, incluirCamposComuns: Boolean): string;
 begin
      Result := '';
      var rttiContext := TRttiContext.Create;
@@ -72,7 +72,7 @@ begin
                    if ((field.HasAttribute<PK> and not incluirPk) or (not field.HasAttribute<PK> and not incluirCamposComuns)) then
                       Continue;
 
-                   if (not comValor) then
+                   if (not somenteComValor) then
                    begin
                         addLista := True;
                         Continue;
@@ -82,7 +82,8 @@ begin
                      tkInteger,tkInt64:
                          addLista := field.GetValue(FEntity).AsInteger > 0;
                      tkFloat:
-                         addLista := (field.GetValue(FEntity).TypeInfo = TypeInfo(TDateTime)) or ((field.GetValue(FEntity).TypeInfo = TypeInfo(Currency)) and (field.GetValue(FEntity).AsCurrency > 0));
+                         addLista := ((field.GetValue(FEntity).TypeInfo = TypeInfo(TDateTime)) and (field.GetValue(FEntity).AsType<TDateTime> > 0)) or
+                                     ((field.GetValue(FEntity).TypeInfo = TypeInfo(Currency)) and (field.GetValue(FEntity).AsCurrency > 0));
                      tkString, tkLString, tkWString, tkUString:
                          addLista := not field.GetValue(FEntity).AsString.IsEmpty;
                      else
@@ -126,7 +127,7 @@ begin
      end;
 end;
 
-function TGeradorSql.ListarValoresParametros(incluirPk, incluirCamposComuns: Boolean): TDictionary<string, Variant>;
+function TGeradorSql.ListarValoresParametros(somenteComValor, incluirPk, incluirCamposComuns: Boolean): TDictionary<string, Variant>;
 begin
      Result := TDictionary<string, Variant>.Create;
      var rttiContext := TRttiContext.Create;
@@ -144,20 +145,25 @@ begin
               case field.GetValue(FEntity).TypeInfo.Kind of
                 tkInteger,tkInt64:
                 begin
-                     if (field.GetValue(FEntity).AsInteger > 0) then
+                    if (somenteComValor and (field.GetValue(FEntity).AsInteger > 0)) or not somenteComValor then
                         Result.Add(field.GetAttribute<Campo>.Nome, field.GetValue(FEntity).AsInteger);
                 end;
                 tkFloat:
                 begin
-                     if (field.GetValue(FEntity).TypeInfo = TypeInfo(TDateTime)) then
-                        Result.Add(field.GetAttribute<Campo>.Nome, StrToDateTime(field.GetValue(FEntity).AsString))
-                     else if (field.GetValue(FEntity).TypeInfo = TypeInfo(Currency)) and (field.GetValue(FEntity).AsCurrency > 0) then
+                    if (field.GetValue(FEntity).TypeInfo = TypeInfo(TDateTime)) and ((somenteComValor and (field.GetValue(FEntity).AsType<TDateTime> > 0)) or not somenteComValor) then
+                        Result.Add(field.GetAttribute<Campo>.Nome, field.GetValue(FEntity).AsType<TDateTime>)
+                    else if (field.GetValue(FEntity).TypeInfo = TypeInfo(Currency)) and ((somenteComValor and (field.GetValue(FEntity).AsCurrency > 0)) or not somenteComValor) then
                         Result.Add(field.GetAttribute<Campo>.Nome, field.GetValue(FEntity).AsCurrency);
                 end;
                 tkString, tkLString, tkWString, tkUString:
                 begin
-                     if (not field.GetValue(FEntity).AsString.IsEmpty) then
+                    if (somenteComValor and not field.GetValue(FEntity).AsString.IsEmpty) or not somenteComValor then
                         Result.Add(field.GetAttribute<Campo>.Nome, field.GetValue(FEntity).AsString);
+                end;
+                tkEnumeration:
+                begin
+                    if (field.GetValue(FEntity).TypeInfo = TypeInfo(Boolean)) then
+                        Result.Add(field.GetAttribute<Campo>.Nome, field.GetValue(FEntity).AsBoolean);
                 end;
                 else
                     Result.Add(field.GetAttribute<Campo>.Nome, field.GetValue(FEntity).AsString);
@@ -174,7 +180,7 @@ begin
      if (filtro.Trim.IsEmpty) then
      begin
           filtro := ListarCampos(':', ' AND ', True, True, True, True);
-          retParams := ListarValoresParametros(True, True);
+          retParams := ListarValoresParametros(True, True, True);
      end;
 
      Result := Format('SELECT %s FROM %s %s', [
@@ -186,7 +192,7 @@ end;
 
 function TGeradorSql.Update(var retParams: TDictionary<string, Variant>): string;
 begin
-     retParams := ListarValoresParametros(True, True);
+     retParams := ListarValoresParametros(False, True, True);
      Result := Format('UPDATE %s SET %s WHERE %s', [
        NomeTabela,
        ListarCampos(':', ', ', False, True, False, True),
