@@ -21,5 +21,13 @@ inherited TarefasView: TTarefasView
       TextSettings.Trimming = None
       OnClick = Button1Click
     end
+    object Button2: TButton
+      Position.X = 416.000000000000000000
+      Position.Y = 256.000000000000000000
+      TabOrder = 2
+      Text = 'Add Tarefa'
+      TextSettings.Trimming = None
+      OnClick = Button2Click
+    end
   end
 end
