@@ -4,6 +4,7 @@ object BaseView: TBaseView
   ClientHeight = 425
   ClientWidth = 588
   Position = ScreenCenter
+  StyleBook = StyleView.styleBook
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]

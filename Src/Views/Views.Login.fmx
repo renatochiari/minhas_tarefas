@@ -17,6 +17,7 @@ inherited LoginView: TLoginView
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         Align = Top
         TabOrder = 0
+        Text = 'renatochiari@gmail.com'
         TextSettings.Font.Size = 18.000000000000000000
         Size.Width = 319.000000000000000000
         Size.Height = 32.000000000000000000
@@ -29,6 +30,7 @@ inherited LoginView: TLoginView
         Align = Top
         TabOrder = 1
         Password = True
+        Text = '1'
         TextSettings.Font.Size = 18.000000000000000000
         Position.Y = 52.000000000000000000
         Margins.Top = 20.000000000000000000

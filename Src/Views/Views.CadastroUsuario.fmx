@@ -1,33 +1,32 @@
 inherited UsuarioCadastroView: TUsuarioCadastroView
   Caption = 'BaseCadastroView1'
-  ClientHeight = 262
+  ClientHeight = 278
   ClientWidth = 480
   DesignerMasterStyle = 0
   inherited lytBase: TLayout
-    Size.Width = 480.000000000000000000
+    Size.Width = 464.000000000000000000
     Size.Height = 262.000000000000000000
     inherited lytBotoes: TLayout
-      Position.Y = 217.000000000000000000
-      Size.Width = 480.000000000000000000
+      Position.Y = 227.000000000000000000
+      Size.Width = 464.000000000000000000
       TabOrder = 3
       inherited btnSalvar: TButton
-        Position.X = 400.000000000000000000
+        Position.X = 384.000000000000000000
       end
       inherited btnExcluir: TButton
-        Position.X = 315.000000000000000000
+        Position.X = 299.000000000000000000
       end
       inherited btnCancelar: TButton
-        Margins.Right = 8.000000000000000000
-        Position.X = 222.000000000000000000
+        Position.X = 214.000000000000000000
       end
     end
     object edtNome: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 0
       Position.X = 30.000000000000000000
-      Position.Y = 41.000000000000000000
+      Position.Y = 45.000000000000000000
       Size.Width = 419.000000000000000000
-      Size.Height = 22.000000000000000000
+      Size.Height = 28.000000000000000000
       Size.PlatformDefault = False
     end
     object lblNome: TLabel
@@ -35,7 +34,7 @@ inherited UsuarioCadastroView: TUsuarioCadastroView
       Position.X = 30.000000000000000000
       Position.Y = 23.000000000000000000
       Size.Width = 120.000000000000000000
-      Size.Height = 16.000000000000000000
+      Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
       Text = 'Nome'
       TabOrder = 6
@@ -44,17 +43,17 @@ inherited UsuarioCadastroView: TUsuarioCadastroView
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 1
       Position.X = 30.000000000000000000
-      Position.Y = 97.000000000000000000
+      Position.Y = 109.000000000000000000
       Size.Width = 419.000000000000000000
-      Size.Height = 22.000000000000000000
+      Size.Height = 28.000000000000000000
       Size.PlatformDefault = False
     end
     object lblEmail: TLabel
       AutoSize = True
       Position.X = 30.000000000000000000
-      Position.Y = 79.000000000000000000
+      Position.Y = 87.000000000000000000
       Size.Width = 120.000000000000000000
-      Size.Height = 16.000000000000000000
+      Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
       Text = 'E-mail'
       TabOrder = 5
@@ -64,17 +63,17 @@ inherited UsuarioCadastroView: TUsuarioCadastroView
       TabOrder = 2
       Password = True
       Position.X = 30.000000000000000000
-      Position.Y = 153.000000000000000000
+      Position.Y = 173.000000000000000000
       Size.Width = 419.000000000000000000
-      Size.Height = 22.000000000000000000
+      Size.Height = 28.000000000000000000
       Size.PlatformDefault = False
     end
     object lblSenha: TLabel
       AutoSize = True
       Position.X = 30.000000000000000000
-      Position.Y = 136.000000000000000000
+      Position.Y = 152.000000000000000000
       Size.Width = 120.000000000000000000
-      Size.Height = 16.000000000000000000
+      Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
       Text = 'Senha'
       TabOrder = 4
